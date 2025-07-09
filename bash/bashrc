@@ -2,3 +2,4 @@
 # Add your aliases and functions here
 alias ll='ls -lah'
 alias lR='ls -laR'
+alias lRl='ls -laR | less'
