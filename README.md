@@ -13,7 +13,7 @@ This repo contains my personal configuration files and setup scripts for shell e
 Clone this repo:
 
 ```bash
-git clone https://github.com/yourusername/dotfiles.git ~/dotfiles
+git clone https://github.com/snekutaren/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ```
 
