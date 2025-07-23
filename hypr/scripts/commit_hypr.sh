@@ -26,9 +26,6 @@ else
   git checkout -b $BRANCH
 fi
 
-# Pull latest changes for safety
-git pull --rebase
-
 # Commit with current date-time as message
 COMMIT_MSG="auto: $(date '+%Y-%m-%d %H:%M:%S')"
 git add "$CONF"
