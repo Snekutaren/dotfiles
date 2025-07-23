@@ -3,7 +3,7 @@ set -euo pipefail
 
 # TEST
 echo "TEST $(date)" >> /tmp/hypr_commit_test.log
-
+export SSH_AUTH_SOCK="/tmp/ssh-XXXXXXK6K1YX/agent.3373"
 
 # Script to edit hyprland.conf and auto commit with timestamp
 
