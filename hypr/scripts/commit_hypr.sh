@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# TEST
+echo "TEST $(date)" >> /tmp/hypr_commit_test.log
+
+
 # Script to edit hyprland.conf and auto commit with timestamp
 
 CONF="$HOME/git/dotfiles/hypr/hyprland.conf"
