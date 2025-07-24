@@ -6,7 +6,7 @@
 alias ll='ls -lah'
 alias lR='ls -laR'
 alias lRl='ls -laR | less'
-alias ssha='/home/owdious/git/dotfiles/bash/ssh-agent_addkey.sh'
+alias ssha='~/git/dotfiles/bash/ssh-agent_addkey.sh'
 
 # Start ssh-agent if not running
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
