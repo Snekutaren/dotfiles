@@ -5,7 +5,7 @@ alias ll='ls -lah'
 alias lR='ls -laR'
 alias lRl='ls -laR | less'
 alias ssha='~/git/dotfiles/bash/ssh-agent_addkey.sh'
-alias buildnix='sudo nix flake update --flake ~/git/nixos-config -vv && sudo nixos-rebuild switch --flake ~/git/nixos-config #nixrog -vv'
+alias buildnix='git -C ~/git/nixos-config commit -am "$(date)" && sudo nix flake update --flake ~/git/nixos-config -vv && sudo nixos-rebuild switch --flake ~/git/nixos-config'
 alias buildnix_dry="sudo nixos-rebuild dry-run --flake ~/git/nixos-config -vv"
 
 # Start ssh-agent if not running
