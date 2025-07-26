@@ -1,3 +1,5 @@
+
+## THIS LOGIC IS CRAP _ FIX IT
 #!/usr/bin/env bash
 set -euo pipefail
 
