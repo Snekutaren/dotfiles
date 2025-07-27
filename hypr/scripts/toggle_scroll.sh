@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Use 'which hyprctl' to get the full path to hyprctl on NixOS
 HYPRCTL_PATH="$(which hyprctl)"
