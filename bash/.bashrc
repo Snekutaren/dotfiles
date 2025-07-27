@@ -10,6 +10,7 @@ alias commit_dot='git -C ~/git/dotfiles add . && (git -C ~/git/dotfiles commit -
 alias build_nix='sudo nix flake update --flake ~/git/nixos-config -vv && sudo nixos-rebuild switch --flake ~/git/nixos-config -vv'
 alias build_nix_vvv='sudo nix flake update --flake ~/git/nixos-config -vvv && sudo nixos-rebuild switch --flake ~/git/nixos-config -vvv'
 alias build_nix_dry="sudo nixos-rebuild dry-run --flake ~/git/nixos-config -vvv"
+alias build_nix_test='sudo nix flake update --flake ~/git/nixos-config -vv && sudo nixos-rebuild test --flake ~/git/nixos-config -vv'
 
 # PATH
 export PATH=$HOME/.local/bin:$PATH
