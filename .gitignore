@@ -1,3 +1,1 @@
-# Ignore all swap and temp files
-*.swp
-*.tmp
+dotfiles.code-workspace
