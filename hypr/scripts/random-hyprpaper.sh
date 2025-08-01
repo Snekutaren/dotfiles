@@ -1,41 +1,30 @@
 #!/bin/bash
 
-# Start hyprpaper if not already running
-pgrep -x hyprpaper >/dev/null || hyprpaper &
+# Enable strict error handling
+set -euo pipefail
 
-sleep 1  # Give hyprpaper time to initialize IPC
+LOGFILE="$HOME/.cache/hyprpaper-random.log"
+echo "=== Starting random wallpaper script at $(date) ===" >> "$LOGFILE"
 
-# Get monitor names (using jq to parse JSON output)
-readarray -t MONITORS < <(hyprctl monitors -j | jq -r '.[].name')
+# Get connected monitor names into array
+MONITORS=($(hyprctl monitors -j | jq -r '.[] | .name'))
 
-MAIN_DIR="$HOME/Pictures/Wallpapers/Main"
-SECONDARY_DIR="$HOME/Pictures/Wallpapers/Secondary"
-
-# Select random wallpapers (only jpg/png/jpeg)
-MAIN_WP=$(find "$MAIN_DIR" -type f \( -iname '*.jpg' -o -iname '*.png' -o -iname '*.jpeg' \) | shuf -n 1)
-SECONDARY_WP=$(find "$SECONDARY_DIR" -type f \( -iname '*.jpg' -o -iname '*.png' -o -iname '*.jpeg' \) | shuf -n 1)
-
-# Check if wallpapers exist
-if [ -z "$MAIN_WP" ]; then
-  echo "No wallpapers found in $MAIN_DIR"
-  exit 1
+if [[ ${#MONITORS[@]} -lt 2 ]]; then
+    echo "ERROR: Less than 2 monitors detected. Found: ${#MONITORS[@]}" >> "$LOGFILE"
+    exit 1
 fi
 
-if [ -z "$SECONDARY_WP" ]; then
-  echo "No wallpapers found in $SECONDARY_DIR"
-  exit 1
-fi
+echo "Detected monitors: ${MONITORS[*]}" >> "$LOGFILE"
 
-# Preload wallpapers (paths only, no prefixes)
-hyprctl hyprpaper preload "$MAIN_WP"
-hyprctl hyprpaper preload "$SECONDARY_WP"
+# Select random wallpaper files
+MAIN_WP=$(find "$HOME/Pictures/Wallpapers/Main" -type f | shuf -n1)
+SECONDARY_WP=$(find "$HOME/Pictures/Wallpapers/Secondary" -type f | shuf -n1)
 
-# Assign wallpapers with 'fill:' prefix BEFORE the colon separating mode and path
-# Format: wallpaper "Monitor,mode:/full/path/to/image"
-if [ "${#MONITORS[@]}" -ge 1 ]; then
-  hyprctl hyprpaper wallpaper "${MONITORS[0]},fill:$MAIN_WP"
-fi
+echo "Selected MAIN wallpaper: $MAIN_WP" >> "$LOGFILE"
+echo "Selected SECONDARY wallpaper: $SECONDARY_WP" >> "$LOGFILE"
 
-if [ "${#MONITORS[@]}" -ge 2 ]; then
-  hyprctl hyprpaper wallpaper "${MONITORS[1]},fill:$SECONDARY_WP"
-fi
+# Set wallpapers with hyprctl hyprpaper (monitor,file)
+hyprctl hyprpaper wallpaper "${MONITORS[0]},${MAIN_WP}" >> "$LOGFILE" 2>&1
+hyprctl hyprpaper wallpaper "${MONITORS[1]},${SECONDARY_WP}" >> "$LOGFILE" 2>&1
+
+echo "Wallpapers set successfully." >> "$LOGFILE"
