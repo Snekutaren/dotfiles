@@ -12,7 +12,7 @@ alias update-flake='sudo nix flake update --flake ~/nixos-config -v'
 alias build-nix='sudo nixos-rebuild switch --flake ~/nixos-config -v'
 alias push-build-nix='update-flake && git-push-nixos && git-push-dot && build-nix'
 alias comfyui='nix develop ~/comfyui/nix'
-
+alias reload-conf='source ~/.bashrc && echo "Bash configuration reloaded." && hyprctl reload && echo "Hyprland configuration reloaded."'
 
 # PATH
 export PATH="$HOME/.local/bin:$PATH"
