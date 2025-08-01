@@ -35,7 +35,7 @@ case $MODE in
     # Remove left monitor border
     hyprctl dispatch monitorrule "$MON_LEFT" "border_size=0"
 
-    notify-send "Hyprland Monitor Layout" "Switched to ISOLATED layout\nRight monitor border: Red"
+    #notify-send "Hyprland Monitor Layout" "Switched to ISOLATED layout\nRight monitor border: Red"
     ;;
 
   "ISOLATED")
@@ -52,6 +52,6 @@ case $MODE in
 
   *)
     echo "⚠️ Unknown monitor position ($POS_RIGHT_CURRENT_X). No changes made."
-    notify-send "Hyprland Monitor Layout" "Unknown mode: $POS_RIGHT_CURRENT_X\nNo changes applied."
+    #notify-send "Hyprland Monitor Layout" "Unknown mode: $POS_RIGHT_CURRENT_X\nNo changes applied."
     ;;
 esac
