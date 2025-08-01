@@ -1,30 +1,29 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Enable strict error handling
-set -euo pipefail
+# Directories for main and secondary wallpapers
+MAIN_DIR="$HOME/Pictures/Wallpapers/Main"
+SECONDARY_DIR="$HOME/Pictures/Wallpapers/Secondary"
 
-LOGFILE="$HOME/.cache/hyprpaper-random.log"
-echo "=== Starting random wallpaper script at $(date) ===" >> "$LOGFILE"
+# Pick random wallpapers
+MAIN_WP=$(find "$MAIN_DIR" -type f \( -iname '*.jpg' -o -iname '*.png' \) | shuf -n 1)
+SECONDARY_WP=$(find "$SECONDARY_DIR" -type f \( -iname '*.jpg' -o -iname '*.png' \) | shuf -n 1)
 
-# Get connected monitor names into array
-MONITORS=($(hyprctl monitors -j | jq -r '.[] | .name'))
+# Preload both
+hyprctl hyprpaper preload "$MAIN_WP"
+PRELOAD_MAIN=$?
 
-if [[ ${#MONITORS[@]} -lt 2 ]]; then
-    echo "ERROR: Less than 2 monitors detected. Found: ${#MONITORS[@]}" >> "$LOGFILE"
-    exit 1
+hyprctl hyprpaper preload "$SECONDARY_WP"
+PRELOAD_SECONDARY=$?
+
+# Only set wallpaper if preload was successful
+if [[ $PRELOAD_MAIN -eq 0 ]]; then
+    hyprctl hyprpaper wallpaper "DP-1,$MAIN_WP"
+else
+    echo "[ERROR] Failed to preload $MAIN_WP"
 fi
 
-echo "Detected monitors: ${MONITORS[*]}" >> "$LOGFILE"
-
-# Select random wallpaper files
-MAIN_WP=$(find "$HOME/Pictures/Wallpapers/Main" -type f | shuf -n1)
-SECONDARY_WP=$(find "$HOME/Pictures/Wallpapers/Secondary" -type f | shuf -n1)
-
-echo "Selected MAIN wallpaper: $MAIN_WP" >> "$LOGFILE"
-echo "Selected SECONDARY wallpaper: $SECONDARY_WP" >> "$LOGFILE"
-
-# Set wallpapers with hyprctl hyprpaper (monitor,file)
-hyprctl hyprpaper wallpaper "${MONITORS[0]},${MAIN_WP}" >> "$LOGFILE" 2>&1
-hyprctl hyprpaper wallpaper "${MONITORS[1]},${SECONDARY_WP}" >> "$LOGFILE" 2>&1
-
-echo "Wallpapers set successfully." >> "$LOGFILE"
+if [[ $PRELOAD_SECONDARY -eq 0 ]]; then
+    hyprctl hyprpaper wallpaper "DP-2,$SECONDARY_WP"
+else
+    echo "[ERROR] Failed to preload $SECONDARY_WP"
+fi
