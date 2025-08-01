@@ -29,29 +29,27 @@ case $MODE in
     echo "→ Switching to ISOLATED layout..."
     hyprctl keyword monitor "$MON_LEFT,$RES_LEFT,$POS_LEFT,1,vrr,2"
     hyprctl keyword monitor "$MON_RIGHT,$RES_RIGHT,$POS_RIGHT_ISOLATED,1"
-    
-    # Set right monitor border red (isolated)
-    hyprctl dispatch monitorrule "$MON_RIGHT" border_color 0xffff4444
-    # Reset left monitor border
-    hyprctl dispatch monitorrule "$MON_LEFT" border_color 0x00000000
-    
-    # Notify user
+
+    # Set right monitor border red with size 3 (isolated)
+    hyprctl dispatch monitorrule "$MON_RIGHT" "border_size=3 border_color=0xffff4444"
+    # Remove left monitor border
+    hyprctl dispatch monitorrule "$MON_LEFT" "border_size=0"
+
     notify-send "Hyprland Monitor Layout" "Switched to ISOLATED layout\nRight monitor border: Red"
     ;;
-    
+
   "ISOLATED")
     echo "→ Switching to CONNECTED layout..."
     hyprctl keyword monitor "$MON_LEFT,$RES_LEFT,$POS_LEFT,1,vrr,2"
     hyprctl keyword monitor "$MON_RIGHT,$RES_RIGHT,$POS_RIGHT_CONNECTED,1"
-    
-    # Reset both monitors border color (connected)
-    hyprctl dispatch monitorrule "$MON_RIGHT" border_color 0x00000000
-    hyprctl dispatch monitorrule "$MON_LEFT" border_color 0x00000000
-    
-    # Notify user
+
+    # Reset borders on both monitors
+    hyprctl dispatch monitorrule "$MON_RIGHT" "border_size=0"
+    hyprctl dispatch monitorrule "$MON_LEFT" "border_size=0"
+
     notify-send "Hyprland Monitor Layout" "Switched to CONNECTED layout\nBorders reset"
     ;;
-    
+
   *)
     echo "⚠️ Unknown monitor position ($POS_RIGHT_CURRENT_X). No changes made."
     notify-send "Hyprland Monitor Layout" "Unknown mode: $POS_RIGHT_CURRENT_X\nNo changes applied."
