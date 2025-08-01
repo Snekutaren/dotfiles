@@ -14,7 +14,5 @@ alias push-build-nix='update-flake && git-push-nixos && git-push-dot && build-ni
 alias comfyui='nix develop ~/comfyui/nix'
 alias reload-conf='source ~/.bashrc && echo "Bash configuration reloaded." && hyprctl reload && echo "Hyprland configuration reloaded."'
 
-# Load custom scripts
-
 # PATH
 export PATH="$HOME/.local/bin:$PATH"

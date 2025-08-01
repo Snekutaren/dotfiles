@@ -47,7 +47,7 @@ case $MODE in
     hyprctl dispatch monitorrule "$MON_RIGHT" "border_size=0"
     hyprctl dispatch monitorrule "$MON_LEFT" "border_size=0"
 
-    notify-send "Hyprland Monitor Layout" "Switched to CONNECTED layout\nBorders reset"
+    #notify-send "Hyprland Monitor Layout" "Switched to CONNECTED layout\nBorders reset"
     ;;
 
   *)
