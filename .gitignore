@@ -1,2 +1,3 @@
 dotfiles.code-workspace
-keys.text
+key.txt
+*.key
