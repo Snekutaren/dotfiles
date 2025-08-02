@@ -1,1 +1,5 @@
 dotfiles.code-workspace
+.age-key
+*.age-key
+.key
+*.key
