@@ -1,0 +1,18 @@
+(defvar current_workspace "1")
+
+(window workspace_osd
+  :monitor 0
+  :anchor "center"
+  :visible false
+  :stacking "fg"
+  :geometry (geometry :width "120px" :height "60px")
+  :class "workspace-osd"
+
+  (box
+    :halign "center"
+    :valign "center"
+    :style "background-color: rgba(0,0,0,0.7); border-radius: 12px; padding: 10px;"
+    (label :text (concat "WS " current_workspace)
+           :style "color: white; font-size: 28px; font-weight: bold;")
+  )
+)

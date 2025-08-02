@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Use 'which hyprctl' to get the full path to hyprctl on NixOS
 HYPRCTL_PATH="$(which hyprctl)"
@@ -12,5 +12,5 @@ current_factor=$("$HYPRCTL_PATH" getoption input:scroll_factor | head -n 1 | awk
 if (( $(echo "$current_factor > 5.0" | bc -l) )); then
     "$HYPRCTL_PATH" keyword input:scroll_factor 2.5
 else
-    "$HYPRCTL_PATH" keyword input:scroll_factor 10.0
+    "$HYPRCTL_PATH" keyword input:scroll_factor 8.0
 fi
