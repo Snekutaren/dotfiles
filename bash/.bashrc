@@ -10,7 +10,8 @@ alias git-push-dot='git -C ~/dotfiles checkout auto && git -C ~/dotfiles add . &
 alias git-push-comfyui='git -C ~/comfyui checkout auto && git -C ~/comfyui add . && (git -C ~/comfyui commit -m "$(date)" || true) && git -C ~/comfyui push'
 alias update-flake='sudo nix flake update --flake ~/nixos-config -v'
 alias build-nix='sudo nixos-rebuild switch --flake ~/nixos-config -v'
-alias push-build-nix='update-flake && git-push-nixos && git-push-dot && build-nix'
+alias build-nix-dry='sudo nixos-rebuild switch --dry-run --flake ~/nixos-config -v'
+alias push-build-nix='update-flake && git-push-dot && build-nix && git-push-nixos' # need to change this to ony push if valid flake
 alias comfyui='nix develop ~/comfyui/nix'
 alias reload-conf='source ~/.bashrc && echo "Bash configuration reloaded." && hyprctl reload && echo "Hyprland configuration reloaded."'
 
